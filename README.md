@@ -1,6 +1,7 @@
-# Rapor
+# Önsöz
 
-Bu rapor Sistem Analizi dersi için yapmış olduğum engelden kaçan robot projesi için hazırlanmıştır.
+Bu rapor Sistem Analizi ve Tasarımı dersi kapsamında yapmış olduğum engelden kaçan robot projesi için hazırlanmıştır. Kullanılan parçalar belirtilmiş, her bir modül için bağlantı şemaları ve genel kullanım örnekleri verilmiştir. Son olarakta projenin şeması ve Arduino' ya yükleyeceğimiz kod verilmiştir. Bu projede geliştirme ortamı olarak VS Code - PlatformIO kullanılmıştır.
+<div class="page"/>
 
 ## Kullanılan parçalar
 * Arduino Uno
@@ -15,7 +16,7 @@ Bu rapor Sistem Analizi dersi için yapmış olduğum engelden kaçan robot proj
 
 ## Motor Sürücü Bağlantısı 
 
-IN1 ile IN2 pinleri sol motor, IN3 ile IN4 pinleri sağ motor bağlantısı için kullanılmaktadır. Bunlar motorun dönme yönünü belirler. ENA ve ENB pinleri motor hızı için kullanılacaktır. Pilin artı tarafı L298N 12V pinine, eksi tarafı ise GND pinine bağlanmıştır. Arduinonun da bağlantı sağlaması için her iki kartın GND pinleri de birbirine bağlanmıştır. Örnek olarak sağ motorun basitçe çalışma prensibi şu şekildedir: 
+IN1 ile IN2 pinleri sol motor, IN3 ile IN4 pinleri sağ motor bağlantısı için kullanılmaktadır. Bunlar motorun dönme yönünü belirler. ENA ve ENB pinleri motor hızı için kullanılacaktır. Pilin artı tarafı L298N 12V pinine, eksi tarafı ise GND pinine bağlanmıştır. Arduinonun da bağlantı sağlaması için her iki kartın GND pinleride birbirine bağlanmıştır. Örnek olarak sağ motorun basitçe çalışma prensibi şu şekildedir: 
 
 ![Image](motor.jpg)  
 <div class="page"/>
@@ -49,13 +50,13 @@ void loop()
 }
 ```
   
-Tek bir motor için kodlar yukarıdaki gibi olacaktır. Projenin geri kalanında motorların hızını da kontrol edeceğimiz için ENA ve ENB pinlerini de dahil edeceğiz. Buralara analog sinyal göndermemiz gerektiğinden ENA için 3, ENB için 9 pinlerini kullandım. 
+Tek bir motor için kodlar yukarıdaki gibi olacaktır. Projenin geri kalanında motorların hızını da kontrol edeceğimiz için ENA ve ENB pinlerini de dahil edeceğiz. Bunlara analog sinyal göndermemiz gerektiğinden ENA için 3, ENB için 9 pinleri kullanılacaktır. 
 
 <br />  
 
-## HC_SR04 Ultrasonik Mesage Sensörü Bağlantısı 
+## HC_SR04 Ultrasonik Mesafe Sensörü Bağlantısı 
 
-Bu sensorün VCC, TRIG, ECHO ve GND olmak üzere 4 pini vardır. VCC ve GND yi güç vermek için, sırasıyla Arduino' nun 5V ve GND pinlerine bağlayacağız. Haberleşme için de ECHO' yu 12, TRIG' i 13 pinlerine bağlıyoruz. TRIG bizim ses dalgalarını yollamasını söyleyeceğimiz pin. ECHO' da bu dalgalardan geri gelen ses dalgalarını okutacağımız pin. Mantık olarak ilk başta bir ses dalgası yollayacağız ve çarpıp gelen ses dalgalarını da okuyacağız. Arada geçen süre ile de mesafeyi hesaplayacağız. Biz projenin ilerleyen kısmında bu değerin, belli bir değerin altında olup olmadığını kontrol edecek ve ona göre işlem yapacağız. Örnek kod aşağıdaki gibi olacaktır.
+Bu sensörün VCC, TRIG, ECHO ve GND olmak üzere 4 pini vardır. VCC ve GND yi güç vermek için, sırasıyla Arduino' nun 5V ve GND pinlerine bağlayacağız. Haberleşme için de ECHO' yu 12, TRIG' i 13 pinlerine bağlıyoruz. TRIG bizim ses dalgalarını yollamasını söyleyeceğimiz, ECHO ise bu dalgalardan geri gelen ses dalgalarını okutacağımız pin. Mantık olarak ilk başta bir ses dalgası yollayacağız ve çarpıp gelen ses dalgalarını da okuyacağız. Arada geçen süre ile de mesafeyi hesaplayacağız. Biz projenin ilerleyen kısmında bu değerin, belli bir değerin altında olup olmadığını kontrol edecek ve ona göre işlem yapacağız. Örnek kod aşağıdaki gibi olacaktır.
 
 ![Image](sensor.jpg) 
 
@@ -87,7 +88,7 @@ void loop()
 }
 ```
   
-Bu şekilde çalıştırdığımızda seri monitöre çok hızlı bir şekilde sayılar geldiğini görüyoruz. Bir cisim yaklaştığında bu değer küçülüyor, aksi halde artıyor. Yaptığımız hesaplamayla bu değer cm cinsinden gelmektedir. Şimdi bu değerlere göre motor hareketlerini düzenleyeceğiz.
+Bu şekilde çalıştırdığımızda seri monitöre çok hızlı bir şekilde sayılar geldiğini görüyoruz. Bir cisim yaklaştığında bu değer küçülüyor, yakınlaştırdığımızda da değer artıyor. Yaptığımız hesaplamayla bu değer cm cinsinden gelmektedir. Şimdi bu değerlere göre motor hareketlerini düzenleyeceğiz.
 
 <br />  
 
@@ -97,9 +98,9 @@ Son olarak yaptığımız bağlantıları birleştirecek, bunlara uygun algoritm
 
 ![Image](son.jpg)
 
-Bu robot için 4 adet AA pil kullanıldı. Toplamda 6V elde ediyoruz ve bu devrenin çalışması için yeterli oluyor. Burda önemli olan nokta Motor Sürücünün güç bağlantısına Aruino' nunda aynı bağlantıdan dahil edilmesi. Bu sayede hem güç alabilecek hem de Sürücüyü kontrol edebileceğiz.  
+Bu robot için 4 adet AA pil kullanıldı. Toplamda 6V elde ediyoruz ve bu devrenin çalışması için yeterli oluyor. Burda önemli olan nokta Motor Sürücünün güç bağlantısına Arduino' nunda aynı bağlantıdan dahil edilmesi. Bu sayede hem güç alabilecek hem de sürücüyü kontrol edebileceğiz.  
 
-Robotun çalışması için mantıksal olarak 3 hareket tanımlayacağız; `ileri()`,  `geri()` ve  `sag()`. Robotun herhangi bir engelle karşılaşmadığı durumda `ileri()` fonksyonu her daim çalışacaktır. Bir engelle karşılaşıldığında, yani Mesafe Sensöründen okunan değerler belli bir değerin altına düştüğünde, önce `geri()` daha sonra da `sag()` fonksyonları çalışacaktır. Hareketlerin gerçekleşebilmesi için aralarında 500 ms olacaktır. 
+Robotun çalışması için mantıksal olarak 3 hareket tanımlayacağız; `ileri()`,  `geri()` ve  `sag()`. Robotun herhangi bir engelle karşılaşmadığı durumda `ileri()` fonksyonu her daim çalışacaktır. Bir engelle karşılaşıldığında, yani mesafe sensöründen okunan değerler belli bir değerin altına düştüğünde, önce `geri()` daha sonra da `sag()` fonksyonları çalışacaktır. Hareketlerin gerçekleşebilmesi için aralarında 500 ms olacaktır. 
 <div class="page"/>
 
 ### ileri()
@@ -147,7 +148,7 @@ analogWrite(MotorSolguc, 255); // sadece sol motoru çalıştırıyoruz
 
 ### main.cpp
 
-Geriye bunları bir method haline getirip algoritmada kullanmak kaldı. Bu fonksyonları, loop fonksyonunun üstünde tanımlıyoruz. Kodlarımızın son hali aşağıdaki gibi olacaktır.
+Geriye bunları bir metot haline getirip algoritmada kullanmak kaldı. Bu fonksyonları, loop fonksyonunun üstünde tanımlıyoruz. Kodlarımızın son hali aşağıdaki gibi olacaktır.
 ```cpp
 #include <Arduino.h>
 
